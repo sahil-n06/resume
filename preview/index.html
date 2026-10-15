@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sahil Nawaz — Resume preview</title>
+  <style>
+    html, body { margin: 0; background: #d8dce3; }
+    #bar {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 8px 16px;
+      background: #1a1a2e;
+      color: #e5e7eb;
+      font: 13px/1.4 Arial, sans-serif;
+    }
+    #bar a { color: #93c5fd; }
+    #error { color: #fecaca; }
+    #container { min-height: 100vh; }
+    body.export { background: #fff; }
+    body.export #bar { display: none; }
+    body.export #container { min-height: 0; }
+    @page { size: letter; margin: 0; }
+    @media print {
+      html, body, #container, .docx-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+        min-height: 0 !important;
+      }
+      .docx-wrapper > section.docx {
+        margin: 0 !important;
+        box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="bar">
+    <span id="status">Building preview…</span>
+    <span id="error"></span>
+  </div>
+  <div id="container"></div>
+  <script src="/vendor/jszip.min.js"></script>
+  <script src="/vendor/docx-preview.min.js"></script>
+  <script>
+    let stamp = "";
+    const exporting = new URLSearchParams(location.search).has("export");
+    if (exporting) document.body.classList.add("export");
+
+    async function render() {
+      const res = await fetch("/Sahil_Nawaz_Resume.docx?t=" + Date.now());
+      if (!res.ok) throw new Error("Resume file is not ready yet");
+      const blob = await res.blob();
+      const container = document.getElementById("container");
+      container.innerHTML = "";
+      await docx.renderAsync(blob, container, null, {
+        inWrapper: true,
+        ignoreWidth: false,
+        ignoreHeight: false,
+        breakPages: true,
+        hideWrapperOnPrint: true,
+      });
+    }
+
+    async function poll() {
+      try {
+        const status = await fetch("/status").then((r) => r.json());
+        const error = document.getElementById("error");
+        if (status.error) {
+          error.textContent = status.error;
+        } else {
+          error.textContent = "";
+        }
+        if (status.stamp !== stamp && status.ready) {
+          stamp = status.stamp;
+          await render();
+          document.getElementById("status").textContent =
+            "Preview updated " + new Date().toLocaleTimeString();
+        } else if (!status.ready && !status.error) {
+          document.getElementById("status").textContent = "Building preview…";
+        }
+      } catch (err) {
+        document.getElementById("error").textContent = err.message;
+      }
+      setTimeout(poll, 800);
+    }
+
+    async function exportOnce() {
+      for (let i = 0; i < 50; i++) {
+        const status = await fetch("/status").then((r) => r.json());
+        if (status.error) throw new Error(status.error);
+        if (status.ready) {
+          await render();
+          const wrapper = document.querySelector(".docx-wrapper");
+          if (wrapper) {
+            wrapper.style.background = "#fff";
+            wrapper.style.padding = "0";
+            wrapper.style.margin = "0";
+          }
+          document.querySelectorAll(".docx-wrapper > section.docx").forEach((el) => {
+            el.style.margin = "0";
+            el.style.boxShadow = "none";
+          });
+          window.__resumeReady = true;
+          return;
+        }
+        await new Promise((resolve) => setTimeout(resolve, 200));
+      }
+      throw new Error("Resume was not ready in time");
+    }
+
+    if (exporting) exportOnce().catch((err) => {
+      window.__resumeError = err.message;
+    });
+    else poll();
+  </script>
+</body>
+</html>

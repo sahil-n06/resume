@@ -1,0 +1,14 @@
+{
+  "name": "sahil-resume",
+  "private": true,
+  "scripts": {
+    "build": "node sahil.js",
+    "preview": "node preview-server.js",
+    "pdf": "node pdf.js"
+  },
+  "dependencies": {
+    "docx": "^9.5.1",
+    "docx-preview": "^0.3.6",
+    "jszip": "^3.10.1"
+  }
+}

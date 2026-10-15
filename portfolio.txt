@@ -1,0 +1,300 @@
+
+Sahil.
+Work
+Experience
+Skills
+Contact
+Resume
+Sahil Nawaz
+Software Development Engineer
+Sahil
+Nawaz
+Building production-grade web apps, AI systems, payments infrastructure, and developer tooling with React, Node.js, and TypeScript
+
+
+View Work
+↓
+—
+mdsahil622004@gmail.com
+Selected Work
+Projects
+01
+NF-Web — NikahForever Web Platform
+Rebuilt NikahForever's web app from scratch on Next.js 16 / React 19 — OTP-based auth, a 4-stage identity verification pipeline (selfie, documents, number, profile), real-time chat, and a subscription/boost funnel wired to an autodialer CRM for checkout recovery. Deployed on Cloudflare edge.
+
+Next.js 16·
+React 19·
+TypeScript·
+Firebase
+View
+Featured
+02
+NEXUS — Sovereign AI Desktop App
+Privacy-first local LLM desktop app with a hardware-aware pre-warm pipeline. Reduced first-token AI latency by ~2.5 seconds on consumer hardware.
+
+Electron·
+React·
+TypeScript·
+node-llama-cpp
+View
+Featured
+03
+Nudge Dev — AI Code Review Extension
+VS Code extension with a 6-persona AI Debate Council and autonomous Guard Loop that runs before and after every coding task. 500+ downloads on Open VSX.
+
+TypeScript·
+Node.js·
+DeepSeek R1·
+Groq
+View
+Featured
+04
+HireML.ai — AI Hiring Platform
+End-to-end AI hiring platform with resume screening, MCQ rounds, coding challenges, and 15–25 min AI voice interviews with anti-cheat (GPT-4o Vision) and 12-language TTS/STT.
+
+Next.js·
+TypeScript·
+PostgreSQL·
+Prisma
+View
+Featured
+05
+Nikah Forever Feedback Intelligence Engine
+5-stage AI pipeline ingesting call recordings, app store reviews, and support tickets into ranked product pain points — improved processing efficiency by 300%.
+
+React·
+Node.js·
+PostgreSQL·
+OpenAI
+View
+Featured
+06
+FlutterEngine.com — Community Docs Platform
+Advanced Flutter documentation and community platform built in collaboration with a Flutter developer. Owned the frontend architecture, design system, and deployment pipeline.
+
+React·
+TypeScript·
+Tailwind CSS
+View
+Featured
+07
+Nudge Junior — Companion VS Code Extension
+Lightweight companion to Nudge Dev for in-editor AI nudges and code quality hints. 100+ downloads on Open VSX.
+
+TypeScript·
+VS Code API·
+Node.js
+View
+08
+Food Pre-order System
+MERN-based food ordering platform — reduced campus wait times from 30 to 15 minutes with real-time order tracking and authentication.
+
+MongoDB·
+Express.js·
+React·
+Node.js
+View
+09
+MentorConnect
+Mentorship platform with secure role-based auth, 2-step verification, and separate flows for mentors and mentees.
+
+Next.js·
+TailwindCSS·
+ShadCN·
+Mailtrap
+View
+10
+Focus Browser Extension
+Productivity extension that disables the screen for 20 seconds on tab switch to break distraction cycles. Open-sourced on GitHub.
+
+Manifest V3·
+JavaScript·
+Chrome APIs
+View
+11
+Breast Cancer ML Classifier
+Python ML model achieving 96% accuracy in classifying breast cancer cases with an interactive Streamlit interface.
+
+Python·
+Scikit-learn·
+Pandas·
+Streamlit
+View
+12
+Carbon Footprint Calculator
+Environmental impact estimation tool with 5+ personalised reduction strategies to help users cut daily carbon emissions by up to 20%.
+
+Python·
+Data Analysis·
+CLI
+View
+13
+MailSetu — Email & SMS Delivery SaaS
+Transactional email + SMS delivery platform with a REST API, SPF/DKIM/DMARC domain verification, HMAC-signed webhooks, Razorpay + GST invoicing, BullMQ async delivery, and a full sandbox mode.
+
+Next.js·
+Node.js·
+PostgreSQL·
+BullMQ
+View
+Featured
+14
+Multi-Region Cloudflare Cache-Warming Platform
+Automated GitHub Actions system that warms Cloudflare cache for 38,718 SEO landing pages across US, Germany, and India via regional SOCKS5 proxies — with retries, resumable progress, and secret-managed proxy config. Recorded a 98.2% success rate across 27,768 warmed URLs and 10,943 Cloudflare cache HITs in a single production run, reducing avoidable origin traffic.
+
+GitHub Actions·
+Python·
+Bash·
+Cloudflare Tiered Cache
+View
+Featured
+Experience
+Where I've
+worked
+June 2026 – Present
+Delhi, India
+Software Development Engineer I
+NikahForever
+
+Reduced a critical API response time from ~6–7s to 250–420ms via query rewriting, composite indexing, and caching; shipped an account lifecycle cron that cascades deletions across MySQL, Firebase, S3, and Zoho CRM with re-login restore within the retention window
+Designed and shipped the Auto Web Dialer — a Smart Stack lead-scoring engine on Exotel WebRTC that scores and prioritises 50 leads per agent using ML scores, payment intent, and plan-visit signals, with real-time webhook sync and per-agent call analytics
+Architected the AI hiring platform (career.nikahforever.com) — GPT-4o resume screening, MCQ/coding rounds, and 15–25 min voice interviews with anti-cheat (GPT-4o Vision, WPM analysis) and 12-language TTS/STT via ElevenLabs and Sarvam AI
+Integrated a multi-gateway payments layer (Razorpay, Cashfree, PayGlocal) with runtime gateway selection by success rate per country and currency, covering mandate, VPA, subscription, and in-app web purchase flows
+Built a WhatsApp notification pipeline (WATI API) and an AI-powered SEO content system generating 1,700–2,200 word landing pages via OpenAI with atomic DB-claim locking to prevent duplicate API calls under concurrent traffic; batch cron processes thousands of WhatsApp messages daily with auto-retry
+Rebuilt the NikahForever web platform on Next.js 16 and React 19, shipping OTP-based authentication, a 4-stage identity verification pipeline (selfie, documents, number, profile), real-time chat, and a subscription/boost payment funnel, deployed on Cloudflare edge infrastructure
+Built an automated GitHub Actions cache-warming system for 38,718 SEO landing pages across 3 regions (US, Germany, India), recording a 98.2% success rate across 27,768 requests and 10,943 Cloudflare cache hits, reducing avoidable origin traffic
+December 2025 – May 2026
+Delhi, India
+Software Developer Intern
+NikahForever
+
+Built a full-stack CRM from scratch integrated with GoSalam.com — centralised user enquiries, leads, and operational workflows, handling 200+ live enquiries in the first two weeks post-launch
+Engineered an AI-powered customer feedback intelligence platform (React · Node.js · PostgreSQL) with automated ingestion pipelines processing call recordings, app store reviews, and support tickets — improved processing efficiency by 300%
+Implemented RBAC with JWT authentication securing role-based dashboards and sensitive business data
+Integrated analytics and event tracking across 10+ key user flows and routes, identifying SEO and YouTube as primary traffic and lead sources
+Collaborated with product, operations, and design teams to ship production-ready improvements on a live system with zero downtime
+June 2025 – November 2025
+Gurugram, India
+Web Developer Intern
+Tussle Digital
+
+Built a secure AI Chat API using Node.js and Azure OpenAI Foundry with dual memory layers (short-term + long-term via embeddings) for continuous, context-aware conversations across sessions
+Architected Kanban, Gantt, Table View, and Workload modules in React and MongoDB with WebSockets for real-time synchronisation — enabled the team to track 30+ client tickets daily
+Developed a ClickUp-integrated client dashboard with Next.js featuring minute-by-minute auto-refresh and colour-coded due-task indicators
+Built secure multi-tenant admin dashboards with role-based access control (RBAC) using React.js, Node.js, and MongoDB
+Managed 10+ client websites using WordPress; executed HubSpot EDM campaigns for 5 clients — reduced manual email management effort by 30%
+November 2024 – January 2025
+Remote, Delhi, India
+Shopify Developer
+Freelance
+
+Delivered a high-performance Shopify e-commerce store with custom Liquid modifications in under 4 weeks
+Improved SEO score by 35% and reduced page load time by 28% through structured data and performance optimisations
+Grew organic traffic by 40% within the first month by implementing SEO best practices and clean storefront architecture
+Integrated third-party apps for automated inventory tracking and real-time client alerts, resolving 80% of post-launch operational issues within one month
+Increased overall store efficiency by 30% through streamlined workflows and app integrations
+Education
+B.Tech in Computer Science and Engineering
+Lloyd Institute of Engineering and Technology
+
+Dr. A.P.J. Abdul Kalam Technical University
+
+August 2022 – January 2026 • Greater Noida, Uttar Pradesh
+
+Credit-Linked AI/ML Program
+IIT Guwahati
+
+Masai School & NSDC
+
+March 2025 – February 2026 • Remote
+
+Senior Secondary (Class XII) & Secondary (Class X)
+New Horizon School
+
+CBSE
+
+KG – Class XII • Nizamuddin, New Delhi
+
+Expertise
+Tools &
+Technologies
+React.js
+React.js
+01
+Next.js
+React framework
+02
+Node.js
+Backend runtime
+03
+TypeScript
+Type safety
+04
+PostgreSQL
+PostgreSQL
+05
+MongoDB
+NoSQL database
+06
+OpenAI API
+OpenAI API
+07
+Azure OpenAI
+AI integration
+08
+Also experienced with
+JavaScript
+Java
+C
+HTML / CSS
+Python
+Electron.js
+Express.js
+Supabase
+MySQL
+SQLite
+Redis
+Prisma
+WebSockets
+REST APIs
+JWT
+RBAC
+BullMQ
+Git
+Exotel
+WATI
+GSAP
+Tailwind CSS
+WordPress
+Shopify
+n8n
+Recognition
+Java Programming — C# Corner
+Bug Bounty Winner — MSIT
+Flipkart Grid 5.0 Level 1 Qualifier
+Top 5 Finalist — MSIT Hackathon
+SIH 2023 & 2024 Internal Hackathon Qualifier
+302 problems solved on LeetCode · CodeChef rated 1414 (Div 3, 2★) across 12 contests
+Cultural Club Lead (2023–2025) — led a 15-member team across 10+ events with 500+ attendees each and 95% satisfaction
+Let's build something meaningful.
+Get in touch
+Email
+mdsahil622004@gmail.com
+Phone
++91 9990874079
+Location
+Delhi, India
+Connect
+GitHub
+LinkedIn
+LeetCode
+Download Resume
+·
+Download CV
+© 2026 Sahil Nawaz
+
+Software Development Engineer
+
+Built with modern web technologies
+
+
