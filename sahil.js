@@ -15,6 +15,7 @@ const {
   const C_ACCENT = "1A56A0";
   const C_RULE   = "CBD5E0";
   const CW       = 11000;
+  const TW       = 10920; // text area width (12240 - 2 × 660 margin)
   
   function lnk(label, url, sz) {
     return new ExternalHyperlink({ link: url, children: [
@@ -33,16 +34,36 @@ const {
     });
   }
   
+  // Left content with right-aligned content on the same line. A borderless
+  // two-column table, because docx-preview ignores right tab stops.
+  const NO_BORDER = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
+  function split(spacing, left, right, rightW) {
+    const rw = rightW || 2600;
+    const cell = (w, children, align) => new TableCell({
+      width: { size: w, type: WidthType.DXA },
+      borders: { top: NO_BORDER, bottom: NO_BORDER, left: NO_BORDER, right: NO_BORDER },
+      margins: { top: 0, bottom: 0, left: 0, right: 0 },
+      children: [new Paragraph({ spacing, alignment: align, children })]
+    });
+    return new Table({
+      width: { size: TW, type: WidthType.DXA },
+      columnWidths: [TW - rw, rw],
+      borders: { top: NO_BORDER, bottom: NO_BORDER, left: NO_BORDER, right: NO_BORDER,
+                 insideHorizontal: NO_BORDER, insideVertical: NO_BORDER },
+      rows: [new TableRow({ children: [
+        cell(TW - rw, left, AlignmentType.LEFT),
+        cell(rw, right, AlignmentType.RIGHT),
+      ]})]
+    });
+  }
+
   function role(title, org, date) {
-    return new Paragraph({
-      spacing: { before: 50, after: 4 },
-      tabStops: [{ type: TabStopType.RIGHT, position: CW }],
-      children: [
+    return split({ before: 50, after: 4 }, [
         new TextRun({ text: title, bold: true, size: 18, font: SANS, color: C_DARK }),
         new TextRun({ text: "  ·  " + org, size: 16, font: SANS, color: C_MUTED }),
-        new TextRun({ text: "\t" + date, size: 15, font: SANS, color: C_MUTED, italics: true }),
-      ]
-    });
+      ], [
+        new TextRun({ text: date, size: 15, font: SANS, color: C_MUTED, italics: true }),
+      ]);
   }
   
   function proj(name, stack, date, url) {
@@ -51,15 +72,12 @@ const {
           text: name, bold: true, size: 17, font: SANS, color: C_ACCENT,
           underline: { type: UnderlineType.SINGLE } })] })
       : new TextRun({ text: name, bold: true, size: 17, font: SANS, color: C_DARK });
-    return new Paragraph({
-      spacing: { before: 40, after: 4 },
-      tabStops: [{ type: TabStopType.RIGHT, position: CW }],
-      children: [
+    return split({ before: 40, after: 4 }, [
         nameEl,
         new TextRun({ text: "  —  " + stack, size: 13, font: SANS, color: C_MUTED }),
-        new TextRun({ text: "\t" + date, size: 14, font: SANS, color: C_MUTED, italics: true }),
-      ]
-    });
+      ], [
+        new TextRun({ text: date, size: 14, font: SANS, color: C_MUTED, italics: true }),
+      ], 900);
   }
   
   // Parse **bold** but deliberately limit — only one bold item per bullet max
@@ -139,7 +157,7 @@ const {
           new TextRun({ text: "+91 9990874079", size: 14, font: SANS, color: C_MUTED }), dot(),
           lnk("mdsahil622004@gmail.com","mailto:mdsahil622004@gmail.com"), dot(),
           lnk("linkedin.com/in/sahil-nawaz","https://linkedin.com/in/sahil-nawaz"), dot(),
-          lnk("github.com/sahiln06","https://github.com/sahiln06"), dot(),
+          lnk("github.com/sahil-n06","https://github.com/sahil-n06"), dot(),
           lnk("sahilnawaz.vercel.app","https://sahilnawaz.vercel.app"), dot(),
           new TextRun({ text: "DOB: 06 Feb 2004", size: 14, font: SANS, color: C_MUTED }),
         ]}),
@@ -152,11 +170,17 @@ const {
 
         sec("Experience"),
 
-        role("Software Development Engineer I", "Nikah Forever — Delhi, India", "Dec 2025 – Present"),
+        role("Software Development Engineer I", "Nikah Forever (Goalwit Technologies Pvt. Ltd.) — Delhi, India", "Dec 2025 – Present"),
+        new Paragraph({ spacing: { before: 0, after: 2 }, children: [
+          new TextRun({ text: "SDE I, Jun 2026 – Present  ·  SDE Intern, Dec 2025 – May 2026 (converted to full-time)",
+            size: 14, font: SANS, color: C_MUTED, italics: true })
+        ]}),
 
-        b("Traced a high-traffic API endpoint that was taking 6 to 7 seconds and got it down to **200 to 300 ms** by rewriting the queries and adding composite indexes plus an application-level cache. Same sprint, shipped the account-lifecycle cron that archives deletions across MySQL, Firebase, S3 and Zoho CRM and restores everything automatically if the user logs back in during the retention window."),
+        b("Cut a high-traffic API from 6–7 s to **200–300 ms** with query rewrites, composite indexes and an app-level cache, and shipped an account-lifecycle cron that archives deletions across MySQL, Firebase, S3 and Zoho CRM and restores them if the user returns within the retention window."),
 
-        b("Built chat moderation for the matrimony send path where an LLM classifier scores every message and blurs anything flagged across the thread, chat list and history, synced through MySQL and Firebase. Kept it **fail open** with tight timeouts so a slow classifier never blocks a chat, and rolled it out by app version so only clients that can actually render the blur ever see it."),
+        b("Built real-time chat moderation where TypeSafe's Jev model scores messages and flagged ones reach the receiver **blurred with tap-to-reveal**. It fails open on timeout, is gated by app version and stays in sync across MySQL, the Node outbox and Firebase."),
+
+        b("Building **Coco**, an AI triage agent in Slack and Jira that verifies escalations against read-only production MySQL and the PHP, Node and Flutter code before filing tickets, and dedupes them by error signature."),
 
         b("Own the Auto Web Dialer **end to end**, a lead-prioritisation engine on Exotel WebRTC that scores and queues 50 contacts per agent from ML signals, payment intent and plan-visit data, feeding a multi-gateway payments layer across Razorpay, Cashfree and PayGlocal that picks the gateway at runtime by success rate for that country and currency."),
 
@@ -170,7 +194,7 @@ const {
           run(" behind a backend gateway that proxies every API call."),
         ]),
 
-        b("Built an automated cache-warming pipeline on GitHub Actions that keeps tens of thousands of SEO landing pages fresh across 3 regions through region-specific proxies, so Cloudflare serves most traffic from the edge instead of hitting origin, landing north of a **98% success rate** with no server needed around the clock."),
+        b("Built a GitHub Actions cache-warming pipeline that keeps tens of thousands of SEO pages fresh across 3 regions so Cloudflare serves most traffic from the edge, at a **98%+ success rate** with no always-on server."),
 
         b("Built GoSalam.com, a travel agency site fully configurable from an admin portal with no code changes, and a feedback intelligence platform on React, Node.js and PostgreSQL that scores call recordings, app-store reviews and support tickets through a 5-stage AI pipeline, cutting manual processing effort by **85%**."),
 
@@ -224,26 +248,20 @@ const {
         }),
 
         sec("Education"),
-        new Paragraph({ spacing: { before: 26, after: 3 },
-          tabStops: [{ type: TabStopType.RIGHT, position: CW }],
-          children: [
-            new TextRun({ text: "B.Tech, Computer Science and Engineering",
-              bold: true, size: 18, font: SANS, color: C_DARK }),
-            new TextRun({ text: "\t2022 – 2026", size: 16, font: SANS, color: C_MUTED, italics: true }),
-          ]
-        }),
-        new Paragraph({ spacing: { before: 0, after: 2 }, children: [
-          new TextRun({ text: "Lloyd Institute of Engineering and Technology, Greater Noida  ·  AKTU  ·  First Division",
-            size: 14, font: SANS, color: C_MUTED })
-        ]}),
-        new Paragraph({ spacing: { before: 14, after: 2 },
-          tabStops: [{ type: TabStopType.RIGHT, position: CW }],
-          children: [
-            new TextRun({ text: "AI and Machine Learning Certification  ·  Masai School × IIT Guwahati",
-              bold: true, size: 18, font: SANS, color: C_DARK }),
-            new TextRun({ text: "\t2025 – 2026", size: 15, font: SANS, color: C_MUTED, italics: true }),
-          ]
-        }),
+        split({ before: 26, after: 3 }, [
+            new TextRun({ text: "B.Tech, Computer Science and Engineering", bold: true, size: 18, font: SANS, color: C_DARK }),
+            new TextRun({ text: "  ·  2022 – 2026", size: 15, font: SANS, color: C_MUTED, italics: true }),
+          ], [
+            new TextRun({ text: "Lloyd Institute of Engineering and Technology, AKTU  ·  ", size: 15, font: SANS, color: C_MUTED }),
+            new TextRun({ text: "First Division", bold: true, size: 15, font: SANS, color: C_DARK }),
+          ], 5000),
+        split({ before: 14, after: 2 }, [
+            new TextRun({ text: "AI & Machine Learning, Credit-Linked Program", bold: true, size: 18, font: SANS, color: C_DARK }),
+            new TextRun({ text: "  ·  2025 – 2026", size: 15, font: SANS, color: C_MUTED, italics: true }),
+          ], [
+            new TextRun({ text: "IIT Guwahati × Masai School  ·  ", size: 15, font: SANS, color: C_MUTED }),
+            new TextRun({ text: "CGPA 8.90 / 10", bold: true, size: 15, font: SANS, color: C_DARK }),
+          ], 5000),
       ]
     }]
   });
